@@ -9,45 +9,42 @@
 <h1>ActiveFX Test Page</h1>
 
 <!-- Canvas for future graphics -->
-<canvas id="canvas" width="400" height="400" style="border:1px solid black;"></canvas>
-
 <!-- Your custom script -->
+<canvas id="canvas" width="800" height="600"></canvas>
 <script type="application/x-activefx" src="hello.link"></script>
 
 <!-- Emscripten output -->
 <script src="afx.js"></script>
 
 <script>
-AFXRuntime({
-    print: text => console.log("[OUT]", text),
-    printErr: text => console.error("[ERR]", text)
-}).then(Module => {
+document.addEventListener("DOMContentLoaded", () => {
+    let canvas = document.getElementById("canvas");
 
-    const run = Module.cwrap("runScript", null, ["string", "number"]);
+    AFXRuntime({
+        canvas: canvas,  // ✅ pass it explicitly
+        print: text => console.log("[OUT]", text),
+        printErr: text => console.error("[ERR]", text)
+    }).then(Module => {
+        const run = Module.cwrap("runScript", null, ["string", "number"]);
+        const scripts = document.querySelectorAll('script[type="application/x-activefx"]');
 
-    // Find all ActiveFX scripts
-    const scripts = document.querySelectorAll('script[type="application/x-activefx"]');
+        scripts.forEach(async (script) => {
+            if (!script.src) return;
 
-    scripts.forEach(async (script) => {
-        if (!script.src) return;
+            try {
+                const response = await fetch(script.src);
+                if (!response.ok) throw new Error("Failed to load " + script.src);
 
-        try {
-            const response = await fetch(script.src);
-            if (!response.ok) throw new Error("Failed to load " + script.src);
+                const code = await response.text();
+                console.log("[AFX] Running:", script.src);
+                run(code, 0);
 
-            const code = await response.text();
-
-            console.log("[AFX] Running:", script.src);
-
-            run(code, 0); // 0 = debug off
-
-        } catch (err) {
-            console.error("[AFX ERROR]", err);
-        }
+            } catch (err) {
+                console.error("[AFX ERROR]", err);
+            }
+        });
     });
-
 });
 </script>
-
 </body>
 </html>

@@ -4,7 +4,9 @@
             "name": "Linux",
             "includePath": [
                 "${workspaceFolder}/**",
-                "/home/toharxp/Projects/emsdk/upstream/emscripten/cache/sysroot/include/"
+                "${workspaceFolder}/**",
+                "/home/toharxp/Projects/emsdk/upstream/emscripten/cache/sysroot/include/",
+                "/home/toharxp/Projects/raylib/src/"
             ],
             "defines": [],
             "compilerPath": "/usr/bin/g++",

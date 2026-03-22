@@ -1,4 +1,5 @@
 # Nebania ActiveFX
+<img src="logo.png" height="200">
 
 ActiveFX is runtime for the link(Script) programming language created by Pilot
 <a href="https://github.com/Pilot0253/link-lang#"><p>Project's Page</p></a>

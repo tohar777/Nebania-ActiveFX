@@ -29,7 +29,7 @@
 //#include "link_net.h"
 #include "runtime.h"
 //#include "link_gui.h"
-#include "actionobjects_dom.h"
+#include "actionobjects.h"
 namespace fs= std::filesystem; 
 static std::random_device rd;
 static std::mt19937 gen(rd()); 
@@ -220,7 +220,7 @@ void Runtime::initNativeFunctions() {
 	};
     nativeRegistry["term.reset"] = [](const std::vector<Obj>& args) -> Obj {
         return Obj("\033[0m");
-    };
+    };*/
     nativeRegistry["time.sleep"] = [](const std::vector<Obj>& args) -> Obj {
         if (args.empty()) return Obj(0);
         int ms = 0;
@@ -228,7 +228,7 @@ void Runtime::initNativeFunctions() {
         else if (std::holds_alternative<double>(args[0].as)) ms = (int)std::get<double>(args[0].as);
         std::this_thread::sleep_for(std::chrono::milliseconds(ms));
         return Obj(0);
-    };
+    };/*
     nativeRegistry["os.exec"] = [this](const std::vector<Obj>& args) -> Obj {
         if (args.empty()) return Obj("");
         return Obj(Sys::exec(objToString(args[0]).c_str())); 
@@ -684,9 +684,66 @@ void Runtime::initNativeFunctions() {
         std::string id = std::get<std::string>(args[0].as);
         std::string css = std::get<std::string>(args[1].as);
         std::string onClick = std::get<std::string>(args[2].as);
-        js_create_button("hello",id.c_str(),onClick.c_str());
+        ActionObjects::js_create_button("hello",id.c_str(),onClick.c_str());
         return Obj(0);
     };
+    nativeRegistry["aodom_gotoURL"] = [](const std::vector<Obj>& args) -> Obj {
+        std::string URL = std::get<std::string>(args[0].as);
+        ActionObjects::js_gotoURL(URL.c_str());
+        return Obj(0);
+    };
+    nativeRegistry["aogInit"] = [](const std::vector<Obj>& args) -> Obj {
+        int w = std::get<int>(args[0].as);
+        int h = std::get<int>(args[1].as);
+        ActionObjects::graphics::init(w,h);
+        return Obj(0);
+    };
+
+    nativeRegistry["aogIsRunning"] = [](const std::vector<Obj>& args) -> Obj {
+        return Obj(ActionObjects::graphics::isRunning());
+    };
+
+    nativeRegistry["aogClear"] = [](const std::vector<Obj>& args) -> Obj {
+        ActionObjects::graphics::clear();
+        return Obj(0);
+    };
+
+    nativeRegistry["aogEnd"] = [](const std::vector<Obj>& args) -> Obj {
+        ActionObjects::graphics::present();
+        return Obj(0);
+    };
+
+    /*nativeRegistry["aogDrawRect"] = [](const std::vector<Obj>& args) -> Obj {
+        float x = std::get<float>(args[0].as);
+        float y = std::get<float>(args[1].as);
+        float w = std::get<float>(args[2].as);
+        float h = std::get<float>(args[3].as);
+        float r = std::get<float>(args[4].as);
+        float g = std::get<float>(args[5].as);
+        float b = std::get<float>(args[6].as);
+        ActionObjects::graphics::draw::drawRect(x,y,w,h,r,g,b);
+        return Obj(0);
+    };*/
+    /*
+    nativeRegistry["aoglfxInit"] = [](const std::vector<Obj>& args) -> Obj {
+        ActionObjects::GL::Window::Init();
+        return Obj(0);
+    };
+
+    nativeRegistry["aoglfxIsRunning"] = [](const std::vector<Obj>& args) -> Obj {
+        return Obj(ActionObjects::GL::Window::isRunning());
+    };
+
+    nativeRegistry["glfxClear"] = [](const std::vector<Obj>& args) -> Obj {
+        ActionObjects::GL::glfxClear();
+        return Obj(0);
+    };
+
+    nativeRegistry["aoglfxSwapBuffers"] = [](const std::vector<Obj>& args) -> Obj {
+        ActionObjects::GL::Window::swapBuffers();
+        return Obj(0);
+    };*/
+    
 }
 
 bool Runtime::isTruthy(const Obj& o) {

@@ -1,2 +1,14 @@
-print("Hello World")
-aodom_createButton("","","")
+print("Hello")
+#aogInit(800,400)
+#while aogIsRunning {
+#    aogClear()
+#    
+#    aogPresent()
+#}
+
+set i = 0
+while 5 > i {
+    i = i+1
+    time.sleep(1000)
+    print(i)
+}
