@@ -6,16 +6,22 @@
 #include <SDL2/SDL_opengl.h>
 #include <SDL2/SDL_events.h>
 #include <GL/glu.h>
+#include <pugixml.hpp>
 #include <cstdlib>
 #include <ctime>
+#include "adl.hpp"
+
 class Shockwave{
     public:
         SDL_Window* window;
         SDL_GLContext gl;
         SDL_Renderer* renderer;
         SDL_Event e;
+        pugi::xml_document doc;
+        pugi::xml_node Application;
+        ADLHandler adl;
         bool isRunning = true;
-        void InitWindow(int w,int h);
+        void InitWindow();
         void Events();
         void Reshape();
         void Display();

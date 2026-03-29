@@ -2,7 +2,7 @@ all:build run
 
 CXX = g++
 SRC = src/*.cpp
-LIBS = -lSDL2 -lGL -lGLU
+LIBS = -lSDL2 -lGL -lGLU -lpugixml
 INCLUDE = -Iinclude/
 BUILD_O = shockwaveplayer
 
