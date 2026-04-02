@@ -28,8 +28,7 @@
 #include "link_math.h"
 //#include "link_net.h"
 #include "runtime.h"
-//#include "link_gui.h"
-#include "actionobjects.h"
+
 namespace fs= std::filesystem; 
 static std::random_device rd;
 static std::mt19937 gen(rd()); 
@@ -89,15 +88,15 @@ char getChar() {
 void Runtime::initNativeFunctions() {
     
     nativeRegistry["print"] = [this](const std::vector<Obj>& args) -> Obj {
-    for (size_t i = 0; i < args.size(); ++i) {
-        std::string rawOutput = objToString(args[i]);
-        std::cout << Sys::unescape(rawOutput);
-        
-        if (i < args.size() - 1) std::cout << " ";
-    }
-    std::cout << "\n";
-    return Obj(0);
-};
+        for (size_t i = 0; i < args.size(); ++i) {
+            std::string rawOutput = objToString(args[i]);
+            std::cout << Sys::unescape(rawOutput);
+            
+            if (i < args.size() - 1) std::cout << " ";
+        }
+        std::cout << "\n";
+        return Obj(0);
+    };
 /*    
     // ==========================================
     // 1. NETWORKING MODULE (SysNet)
@@ -680,7 +679,15 @@ void Runtime::initNativeFunctions() {
     return Obj(true);
     };
     */
-    
+    nativeRegistry["graphics.DrawLine"] = [this](const std::vector<Obj>& args) -> Obj {
+        SDL_Point v[] = {
+            {0,0},
+            {200,200}
+        };
+        SDL_SetRenderDrawColor(this->renderer,255,0,0,255);
+        SDL_RenderDrawLines(this->renderer,v,2);
+        return Obj(0);
+    };
     
 }
 

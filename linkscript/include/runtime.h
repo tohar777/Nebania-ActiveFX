@@ -7,7 +7,7 @@
 #include <unordered_map>
 #include <functional>
 #include <variant>
-
+#include <SDL2/SDL.h>
 // Include dependency
 #include "types.h"
 #include "env.h"
@@ -18,6 +18,7 @@ using NativeFn = std::function<Obj(const std::vector<Obj>&)>;
 
 class Runtime {
 private:
+    SDL_Renderer* renderer;
     std::shared_ptr<Environment> globalEnv;
     std::shared_ptr<Environment> currentEnv;
     

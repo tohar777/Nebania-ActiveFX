@@ -1,9 +1,7 @@
-#include "Application.hpp"
-
+#include "Shockwave.hpp"
 int main(int argc, char const *argv[])
 {
 
-    Shockwave sw;
-    sw.Start();
+    Shockwave sw(800,480);
     return 0;
 }

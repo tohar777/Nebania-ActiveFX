@@ -7,13 +7,14 @@ ActiveFX is runtime for the link(Script) programming language created by Pilot
 ActiveFX Provides:
 <ul>
     <li>LinkScript - a dailect of Link</li>
-    <li>ActionObjects - Official framrwork for UI,Graphics,Networking and more</li>
+    <li>Shockwave - Official Player to run AFX Content under the adl/xml format</li>
 </ul>
 
 <h3>dependices</h3>
 <ul>
-<li>emscripten</li>
-<li>raylib</li>
+<li>SDL2</li>
+<li>SDL2_Image</li>
+<li>pugixml</li>
 </ul>
 
 ## How to build:

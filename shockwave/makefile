@@ -1,13 +1,13 @@
-all:build run
+all: build
 
 CXX = g++
-SRC = src/*.cpp
-LIBS = -lSDL2 -lGL -lGLU -lpugixml
-INCLUDE = -Iinclude/
-BUILD_O = shockwaveplayer
+SRC= src/*.cpp ../linkscript/src/*.cpp
+INC = -Iinclude/ -I../linkscript/include
+LIB =  -lSDL2 -lpugixml -lSDL2_image
+BIN = -o bin/desktop/shockwave  
 
-build:
-	$(CXX) $(SRC) $(INCLUDE) $(LIBS) -o $(BUILD_O)
-
+build:	
+	$(CXX) $(SRC) $(INC) $(LIB) $(BIN)
 run:
-	./$(BUILD_O)
+	cd bin/desktop
+	./shockwave app.xml

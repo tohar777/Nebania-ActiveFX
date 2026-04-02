@@ -1,4 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<Application Background="White" width="800" height="500">
-    <Quads Color="Blue" startx="0" starty="0" endx="200" endy="200" />
-</Application>
