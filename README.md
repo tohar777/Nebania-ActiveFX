@@ -10,11 +10,11 @@ ActiveFX Provides:
     <li>FX Frameworks - Official frameworks for graphics,sound,DOM and everything you need</li>
 </ul>
 
-<h3>dependices</h3>
+<h3>dependices(that doesn't come with the project!)</h3>
 <ul>
 <li>SDL2</li>
 <li>SDL2_Image</li>
-<li>pugixml</li>
+
 </ul>
 
 ## How to build:
